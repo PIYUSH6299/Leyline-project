@@ -1,0 +1,14 @@
+replicaCount: 1
+
+image:
+  repository: empower9090/flask-rest-api-web
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  name: my-rest-api
+  type: ClusterIP
+  port: 3000
+
+secrets:
+  databaseUrl: bXlzcWw6Ly9yb290OnBhc3N3b3JkQGRiOjMzMDYvbXlkYXRhYmFzZQ==

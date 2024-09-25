@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-rest-api.name" . }}
+  labels:
+    app: {{ include "my-rest-api.name" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "my-rest-api.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "my-rest-api.name" . }}
+    spec:
+      containers:
+      - name: {{ include "my-rest-api.name" . }}
+        image: {{ .Values.image.repository }} # Update this with your Docker image
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: my-rest-api-secrets
+              key: database-url
